@@ -1,6 +1,8 @@
 package com.dise.tickets.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,37 +11,37 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "event")
+@Table(name = "social_event")
 public class SocialEvent implements Serializable {
 
 	@Id
-	@Column(name = "id_event")
+	@Column(name = "id_social_event")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEvent;
 
-	@Column(name = "name_event")
+	@Column(name = "name_social_event")
 	private String name;
 
-	@Column(name = "date_start_event")
-	private String dateStart;
+	@Column(name = "date_start_social_event")
+	private Timestamp dateStart;
 
-	@Column(name = "date_end_event")
-	private String dateEnd;
+	@Column(name = "date_end_social_event")
+	private Timestamp dateEnd;
 
-	@Column(name = "price_ticket_event")
+	@Column(name = "price_ticket_social_event")
 	private Integer priceTicket;
 
-	@Column(name = "available_tickets")
+	@Column(name = "available_social_event")
 	private Integer availableTickets;
 
-	@Column(name = "description")
+	@Column(name = "description_social_event")
 	private String description;
 
 	public SocialEvent() {
 		super();
 	}
 
-	public SocialEvent(String name, String dateStart, String dateEnd, Integer priceTicket, Integer availableTickets,
+	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Integer priceTicket, Integer availableTickets,
 			String description) {
 		super();
 		this.name = name;
@@ -66,19 +68,19 @@ public class SocialEvent implements Serializable {
 		this.name = name;
 	}
 
-	public String getDateStart() {
+	public Timestamp getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(String dateStart) {
+	public void setDateStart(Timestamp dateStart) {
 		this.dateStart = dateStart;
 	}
 
-	public String getDateEnd() {
+	public Timestamp getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(String dateEnd) {
+	public void setDateEnd(Timestamp dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 

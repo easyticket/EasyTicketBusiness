@@ -23,8 +23,8 @@ public class SocialEventController {
 	SocialEventService socialEventService;
 		
 	//GET
-	@RequestMapping(value="/shows", method = RequestMethod.GET, headers= "Accept=application/json")
-	public ResponseEntity<List<SocialEvent>> getShows(){
+	@RequestMapping(value="/socialEvent", method = RequestMethod.GET, headers= "Accept=application/json")
+	public ResponseEntity<List<SocialEvent>> getSocialEvent(){
 		List<SocialEvent> socialEvents = new ArrayList<>();
 		socialEvents = socialEventService.findAll();
 		if(socialEvents.isEmpty()) {
@@ -36,22 +36,19 @@ public class SocialEventController {
 	}
 	
 	//POST
-	@RequestMapping(value="/shows", method = RequestMethod.POST, headers="Accept=application/json")
-	public ResponseEntity <?> postShows(@RequestBody SocialEvent socialEvent){	
+	@RequestMapping(value="/socialEvent", method = RequestMethod.POST, headers="Accept=application/json")
+	public ResponseEntity <?> postSocialEvent(@RequestBody SocialEvent socialEvent){	
 
 		if(socialEvent.getName().isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
-		if (!socialEventService.findByName(socialEvent.getName()).equals(null)) {
+		if (socialEventService.findByName(socialEvent.getName())!=null) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 		
 		socialEventService.save(socialEvent);
-		SocialEvent socialE = socialEventService.findByName(socialEvent.getName());
-		HttpHeaders headers = new HttpHeaders();
-		
-		
-		return new ResponseEntity<String>(headers,HttpStatus.CREATED);
+			
+		return new ResponseEntity(HttpStatus.ACCEPTED);
 
 	}
 	

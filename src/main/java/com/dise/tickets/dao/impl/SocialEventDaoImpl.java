@@ -1,4 +1,4 @@
-package com.dise.tickets.dao;
+package com.dise.tickets.dao.impl;
 
 import java.util.List;
 
@@ -6,11 +6,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.dise.tickets.dao.AbstractSession;
+import com.dise.tickets.dao.SocialEventDao;
 import com.dise.tickets.model.SocialEvent;
 
 @Repository
 @Transactional
-public class ShowDaoImpl extends AbstractSession implements SocialEventDao {
+public class SocialEventDaoImpl extends AbstractSession implements SocialEventDao {
 
 	@Override
 	public void save(SocialEvent socialEvent) {

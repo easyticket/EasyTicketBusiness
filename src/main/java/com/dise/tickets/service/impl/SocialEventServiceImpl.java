@@ -1,4 +1,4 @@
-package com.dise.tickets.service;
+package com.dise.tickets.service.impl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.SocialEventDao;
 import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.service.SocialEventService;
 
 @Service
 @Transactional
