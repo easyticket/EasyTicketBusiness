@@ -28,7 +28,10 @@ public class SocialEventServiceImpl implements SocialEventService{
 	public List<SocialEvent> findAll() {
 		return socialEventDao.findAll();
 	}
-	
+	@Override
+	public List<SocialEvent> findByCost(int cost) {
+		return socialEventDao.fintByCost(cost);
+	}
 	@Override
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
 		return socialEventDao.findByDate(dateStart, dateEnd);

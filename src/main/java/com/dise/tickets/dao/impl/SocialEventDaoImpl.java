@@ -25,6 +25,12 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 	}
 
 	@Override
+	public List<SocialEvent> fintByCost(int cost) {
+		return getSession().createQuery("FROM SocialEvent WHERE priceTicket = :cost ")
+				.setParameter("cost", cost).list();
+	}
+	
+	@Override
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
 		return getSession().createQuery("FROM SocialEvent WHERE dateStart BETWEEN :dateStart AND :dateEnd ")
 				.setParameter("dateStart", dateStart).setParameter("dateEnd", dateEnd).list();

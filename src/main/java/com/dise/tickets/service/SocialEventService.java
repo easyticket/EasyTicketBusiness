@@ -10,6 +10,8 @@ public interface SocialEventService {
 	public void save(SocialEvent event);
 
 	public List<SocialEvent> findAll();
+	
+	public List<SocialEvent> findByCost(int cost);
 
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd);
 	

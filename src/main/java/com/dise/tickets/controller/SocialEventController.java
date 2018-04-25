@@ -50,6 +50,20 @@ public class SocialEventController {
 
 	}
 
+	// GET
+	@RequestMapping(value = "/socialEvent/{cost}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<List<SocialEvent>> getSocialEventForCost(@PathVariable("cost") int cost) {
+		List<SocialEvent> socialEvents = new ArrayList<>();
+		socialEvents = socialEventService.findByCost(cost);
+		if (socialEvents.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
+
+	}
+	
+
 	// POST
 	@RequestMapping(value = "/socialEvent", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<?> postSocialEvent(@RequestBody SocialEvent socialEvent) {
