@@ -51,7 +51,7 @@ public class TicketController {
 	}
 	//POST
 	@RequestMapping(value = "/ticket", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<?> postSocialEvent(@RequestBody Ticket ticket) {
+	public ResponseEntity<?> postTicket(@RequestBody Ticket ticket) {
 
 		ticketService.save(ticket);
 
