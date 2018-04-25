@@ -1,5 +1,6 @@
 package com.dise.tickets.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.dise.tickets.model.SocialEvent;
@@ -10,6 +11,8 @@ public interface SocialEventService {
 
 	public List<SocialEvent> findAll();
 
+	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd);
+	
 	public SocialEvent findById(Long id);
 
 	public SocialEvent findByName(String name);

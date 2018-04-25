@@ -1,14 +1,13 @@
 package com.dise.tickets.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Repository;
-
 import com.dise.tickets.dao.AbstractSession;
 import com.dise.tickets.dao.SocialEventDao;
 import com.dise.tickets.model.SocialEvent;
+
 
 @Repository
 @Transactional
@@ -23,6 +22,12 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 	@Override
 	public List<SocialEvent> findAll() {
 		return getSession().createQuery("from SocialEvent").list();
+	}
+
+	@Override
+	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
+		return getSession().createQuery("FROM SocialEvent WHERE dateStart BETWEEN :dateStart AND :dateEnd ")
+				.setParameter("dateStart", dateStart).setParameter("dateEnd", dateEnd).list();
 	}
 
 	@Override

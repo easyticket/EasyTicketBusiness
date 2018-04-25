@@ -1,5 +1,6 @@
 package com.dise.tickets.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,11 @@ public class SocialEventServiceImpl implements SocialEventService{
 	@Override
 	public List<SocialEvent> findAll() {
 		return socialEventDao.findAll();
+	}
+	
+	@Override
+	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
+		return socialEventDao.findByDate(dateStart, dateEnd);
 	}
 
 	@Override
