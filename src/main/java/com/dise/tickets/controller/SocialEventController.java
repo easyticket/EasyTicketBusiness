@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.entity.SocialEvent;
 import com.dise.tickets.service.SocialEventService;
 
 @RestController

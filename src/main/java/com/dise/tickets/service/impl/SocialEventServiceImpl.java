@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.SocialEventDao;
-import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.entity.SocialEvent;
 import com.dise.tickets.service.SocialEventService;
 
 @Service

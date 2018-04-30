@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import com.dise.tickets.dao.AbstractSession;
 import com.dise.tickets.dao.SocialEventDao;
-import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.entity.SocialEvent;
 
 
 @Repository

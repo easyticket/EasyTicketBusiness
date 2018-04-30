@@ -1,8 +1,9 @@
 package com.dise.tickets.dao;
 
 import java.util.List;
-import com.dise.tickets.model.Ticket;
-import com.dise.tickets.model.TicketPk;
+
+import com.dise.tickets.entity.Ticket;
+import com.dise.tickets.entity.TicketPk;
 
 public interface TicketDao {
 

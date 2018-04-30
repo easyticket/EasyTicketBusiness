@@ -3,8 +3,7 @@ package com.dise.tickets.dao;
 import java.sql.Timestamp;
 import java.util.List;
 
-
-import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.entity.SocialEvent;
 
 public interface SocialEventDao {
 	

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.TicketDao;
-import com.dise.tickets.model.Ticket;
-import com.dise.tickets.model.TicketPk;
+import com.dise.tickets.entity.Ticket;
+import com.dise.tickets.entity.TicketPk;
 import com.dise.tickets.service.TicketService;
 
 @Service
@@ -43,5 +43,7 @@ public class TicketServiceImpl implements TicketService{
 	public void delete(TicketPk ticketPk) {
 		ticketDao.delete(ticketPk);		
 	}
+	
+	
 
 }

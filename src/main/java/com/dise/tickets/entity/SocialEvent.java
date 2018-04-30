@@ -1,13 +1,15 @@
-package com.dise.tickets.model;
+package com.dise.tickets.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +38,9 @@ public class SocialEvent implements Serializable {
 
 	@Column(name = "description_social_event")
 	private String description;
+	
+	@OneToMany(mappedBy = "socialEvent")
+    private List<Ticket> tickets;
 
 	public SocialEvent() {
 		super();

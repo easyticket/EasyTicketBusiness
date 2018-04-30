@@ -3,7 +3,7 @@ package com.dise.tickets.service;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.dise.tickets.model.SocialEvent;
+import com.dise.tickets.entity.SocialEvent;
 
 public interface SocialEventService {
 	
