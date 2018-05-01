@@ -1,4 +1,4 @@
-package com.dise.tickets.model;
+package com.dise.tickets.entity;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;

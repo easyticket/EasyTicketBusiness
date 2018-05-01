@@ -6,10 +6,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.dise.tickets.model.Ticket;
-import com.dise.tickets.model.TicketPk;
 import com.dise.tickets.dao.AbstractSession;
 import com.dise.tickets.dao.TicketDao;
+import com.dise.tickets.entity.Ticket;
+import com.dise.tickets.entity.TicketPk;
 
 @Repository
 @Transactional

@@ -45,7 +45,6 @@ public class DataBaseConfiguration {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		properties.put("show_sql", "true");
-		properties.put("show_sql", "true");
 		
 		
 		return properties;

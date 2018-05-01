@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.CityDao;
 import com.dise.tickets.model.City;
-import com.dise.tickets.model.SocialEvent;
 import com.dise.tickets.service.CityService;
 
 @Service
@@ -30,12 +29,12 @@ public class CityServiceImpl implements CityService{
 	}
 
 	@Override
-	public SocialEvent findById(Long id) {
+	public City findById(Long id) {
 		return null;
 	}
 
 	@Override
-	public SocialEvent findByName(String name) {
+	public City findByName(String name) {
 		return null;
 	}
 
