@@ -85,7 +85,12 @@ public class TicketServiceImpl implements TicketService{
 	}
 	
 	private Integer generateNumberTicket() {
+<<<<<<< HEAD
 		return (int) (Math.random() * 1000) + 1;
+=======
+		Random rnd = new Random();
+		return (int) (rnd.nextDouble() * 1 + 100000);
+>>>>>>> d7822a3990d14c540acb555625cfb4c8efd2a820
 	}
 	
 	// move to utils
