@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Embeddable
 public class TicketPk implements Serializable{
@@ -11,21 +13,20 @@ public class TicketPk implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	
-	@Column(name="id_social_event")
+	@Column(name="id_event")
 	private Long idSocialEvent;
 	
-	@Column(name="ticket_number")
-	private Long ticketNumber;
+	@Column(name="id_ticket")
+	private String idTicket;
 
-	
 	public TicketPk() {
 		super();
 	}
 
-	public TicketPk(Long idSocialEvent, Long ticketNumber) {
+	public TicketPk(Long idSocialEvent, String idTicket) {
 		super();
 		this.idSocialEvent = idSocialEvent;
-		this.ticketNumber = ticketNumber;
+		this.idTicket = idTicket;
 	}
 
 	public Long getIdSocialEvent() {
@@ -36,14 +37,12 @@ public class TicketPk implements Serializable{
 		this.idSocialEvent = idSocialEvent;
 	}
 
-	public Long getTicketNumber() {
-		return ticketNumber;
+	public String getIdTicket() {
+		return idTicket;
 	}
 
-	public void setTicketNumber(Long ticketNumber) {
-		this.ticketNumber = ticketNumber;
+	public void setIdTicket(String idTicket) {
+		this.idTicket = idTicket;
 	}
-
-	
 	
 }
