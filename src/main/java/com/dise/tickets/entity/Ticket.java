@@ -1,5 +1,7 @@
 package com.dise.tickets.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,27 +14,31 @@ import com.dise.tickets.enums.TicketStatus;
 
 @Entity
 @Table(name = "ticket")
-public class Ticket {
+public class Ticket implements Serializable{
+
+	private static final long serialVersionUID = -3546357799690928829L;
 
 	@EmbeddedId
 	private TicketPk ticketpk; 
 
-	@Column(name = "ticket_status")
+	@Column(name = "state_ticket")
 	private TicketStatus ticketStatus;
+	
+	@Column(name = "number_ticket")
+	private Integer numberTicket;
 
 	@ManyToOne
-	@JoinColumn(name = "id_social_event", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "FK_EVE_TIC"))
+	@JoinColumn(name = "id_event", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "FK_EVE_TIC"))
 	private SocialEvent socialEvent;
 	
 	public Ticket() {
 		super();
 	}
 
-	public Ticket(TicketPk ticketpk, TicketStatus ticketStatus, SocialEvent socialEvent) {
+	public Ticket(TicketPk ticketpk, TicketStatus ticketStatus) {
 		super();
 		this.ticketpk = ticketpk;
 		this.ticketStatus = ticketStatus;
-		this.socialEvent = socialEvent;
 	}
 
 	public TicketPk getTicketpk() {
@@ -51,6 +57,14 @@ public class Ticket {
 		this.ticketStatus = ticketStatus;
 	}
 
+	public Integer getNumberTicket() {
+		return numberTicket;
+	}
+
+	public void setNumberTicket(Integer numberTicket) {
+		this.numberTicket = numberTicket;
+	}
+
 	public SocialEvent getSocialEvent() {
 		return socialEvent;
 	}
@@ -60,5 +74,4 @@ public class Ticket {
 	}
 
 	
-
 }
