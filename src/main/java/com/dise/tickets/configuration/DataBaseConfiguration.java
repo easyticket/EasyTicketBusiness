@@ -23,7 +23,7 @@ public class DataBaseConfiguration {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource()); // datos de configuracion BD
 		//Donde se hara el mapping de las clases
-		sessionFactory.setPackagesToScan("com.dise.tickets.model");
+		sessionFactory.setPackagesToScan("com.dise.tickets.entity");
 		//Añadiendo propiedades de hibernate 
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;

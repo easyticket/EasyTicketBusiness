@@ -16,27 +16,29 @@ import javax.persistence.Table;
 @Table(name = "social_event")
 public class SocialEvent implements Serializable {
 
+	private static final long serialVersionUID = 84444129815305507L;
+
 	@Id
-	@Column(name = "id_social_event")
+	@Column(name = "id_event")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEvent;
 
-	@Column(name = "name_social_event")
+	@Column(name = "name_event")
 	private String name;
 
-	@Column(name = "date_start_social_event")
+	@Column(name = "date_start_event")
 	private Timestamp dateStart;
 
-	@Column(name = "date_end_social_event")
+	@Column(name = "date_end_event")
 	private Timestamp dateEnd;
 
-	@Column(name = "price_ticket_social_event")
-	private Integer priceTicket;
+	@Column(name = "price_ticket_event")
+	private Long priceTicket;
 
-	@Column(name = "available_social_event")
+	@Column(name = "available_tickets")
 	private Integer availableTickets;
 
-	@Column(name = "description_social_event")
+	@Column(name = "description")
 	private String description;
 	
 	@OneToMany(mappedBy = "socialEvent")
@@ -46,7 +48,7 @@ public class SocialEvent implements Serializable {
 		super();
 	}
 
-	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Integer priceTicket, Integer availableTickets,
+	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
 			String description) {
 		super();
 		this.name = name;
@@ -89,11 +91,11 @@ public class SocialEvent implements Serializable {
 		this.dateEnd = dateEnd;
 	}
 
-	public Integer getPriceTicket() {
+	public Long getPriceTicket() {
 		return priceTicket;
 	}
 
-	public void setPriceTicket(Integer priceTicket) {
+	public void setPriceTicket(Long priceTicket) {
 		this.priceTicket = priceTicket;
 	}
 
