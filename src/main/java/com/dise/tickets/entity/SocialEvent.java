@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,12 +44,17 @@ public class SocialEvent implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_enterprise", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_soe_ent"))
+	private Enterprise enterprise;
+
 	@OneToMany(mappedBy = "socialEvent")
     private List<Ticket> tickets;
 
 	public SocialEvent() {
 		super();
 	}
+
 
 	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
 			String description) {
@@ -57,6 +65,7 @@ public class SocialEvent implements Serializable {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+
 	}
 
 	public Long getIdEvent() {
@@ -114,6 +123,16 @@ public class SocialEvent implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Enterprise getEnterprise() {
+		return enterprise;
+	}
+
+	public void setEnterprise(Enterprise enterprise) {
+		this.enterprise = enterprise;
+	}
+	
+	
 
 	
 	

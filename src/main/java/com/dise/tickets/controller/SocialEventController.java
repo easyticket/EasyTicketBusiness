@@ -49,6 +49,20 @@ public class SocialEventController {
 		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
 
 	}
+	
+	// GET
+	@RequestMapping(value = "/socialEvent/{dateStart}/{dateEnd}/{city}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<List<SocialEvent>> getSocialEventForDate(@PathVariable("dateStart") Timestamp dateStart,
+			@PathVariable("dateEnd") Timestamp dateEnd,@PathVariable("city") Long city) {
+		List<SocialEvent> socialEvents = new ArrayList<>();
+		socialEvents = socialEventService.findByDateAndCity(dateStart, dateEnd, city);
+		if (socialEvents.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
+
+	}
 
 	// GET
 	@RequestMapping(value = "/socialEvent/{cost}", method = RequestMethod.GET, headers = "Accept=application/json")
