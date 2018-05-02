@@ -3,6 +3,8 @@ package com.dise.tickets.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dise.tickets.entity.SocialEvent;
 import com.dise.tickets.entity.Ticket;
 import com.dise.tickets.entity.TicketPk;
+import com.dise.tickets.model.TicketRequest;
+import com.dise.tickets.model.TicketResponse;
 import com.dise.tickets.service.TicketService;
 
 @RestController
@@ -33,13 +39,13 @@ public class TicketController {
 		if(tickets.isEmpty()) {
 			return new 	ResponseEntity(HttpStatus.NO_CONTENT);
 		}
-		
+			
 		return new ResponseEntity<List<Ticket>>(tickets,HttpStatus.OK);
 		
 	}
 	//GET
 	@RequestMapping(value="/ticket/{socialEventId}/{ticketNumber}", method = RequestMethod.GET)
-	public ResponseEntity<Ticket> getTicket(@PathVariable("socialEventId") Long idSocialEvent,@PathVariable("ticketNumber") Long ticketNumber){
+	public ResponseEntity<Ticket> getTicket(@PathVariable("socialEventId") Long idSocialEvent,@PathVariable("ticketNumber") String ticketNumber){
 		Ticket ticket = new Ticket();
 		ticket = ticketService.findById(new TicketPk(idSocialEvent, ticketNumber));
 		if(ticket ==null) {
@@ -54,8 +60,18 @@ public class TicketController {
 	public ResponseEntity<?> postTicket(@RequestBody Ticket ticket) {
 
 		ticketService.save(ticket);
-
 		return new ResponseEntity(HttpStatus.ACCEPTED);
+
+	}
+	
+	
+	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public TicketResponse createTicket(@Valid @RequestBody TicketRequest ticketRequest) {
+		
+		 TicketPk ticketPk= ticketService.createTicket(ticketRequest);
+		 return ticketService.buildTicketResponse(ticketPk);
 
 	}
 	

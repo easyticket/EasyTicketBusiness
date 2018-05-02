@@ -2,7 +2,7 @@ package com.dise.tickets.service;
 
 import java.util.List;
 
-import com.dise.tickets.model.City;
+import com.dise.tickets.entity.City;
 
 public interface CityService {
 	

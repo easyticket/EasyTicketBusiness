@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.CityDao;
-import com.dise.tickets.model.City;
+import com.dise.tickets.entity.City;
 import com.dise.tickets.service.CityService;
 
 @Service

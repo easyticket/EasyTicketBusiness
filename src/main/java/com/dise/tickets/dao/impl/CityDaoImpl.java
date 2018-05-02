@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dise.tickets.dao.AbstractSession;
 import com.dise.tickets.dao.CityDao;
-import com.dise.tickets.model.City;
+import com.dise.tickets.entity.City;
 
 @Repository
 @Transactional

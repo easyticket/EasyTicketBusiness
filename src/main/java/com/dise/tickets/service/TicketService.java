@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.dise.tickets.entity.Ticket;
 import com.dise.tickets.entity.TicketPk;
+import com.dise.tickets.model.TicketRequest;
+import com.dise.tickets.model.TicketResponse;
 
 
 public interface TicketService {
@@ -18,4 +20,7 @@ public interface TicketService {
 
 	public void delete(TicketPk ticketPk);
 	
+	public TicketPk createTicket(TicketRequest ticketRequest);
+	
+	public  TicketResponse buildTicketResponse(TicketPk ticketPk);
 }

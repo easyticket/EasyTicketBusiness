@@ -1,4 +1,6 @@
-package com.dise.tickets.model;
+package com.dise.tickets.entity;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,11 +35,12 @@ public class Enterprise {
 	@JoinColumn(name = "id_city", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_ent_cit"))
 	private City city;
 
+	@OneToMany(mappedBy = "enterprise")
+	private List<SocialEvent> socialEvents;
+
 	public Enterprise() {
 		super();
 	}
-	
-	
 
 	public Enterprise(Long idEnterprise, String enterpriseName, String enterpriseAddress, String enterprisePhone,
 			City city) {
@@ -47,8 +51,6 @@ public class Enterprise {
 		this.enterprisePhone = enterprisePhone;
 		this.city = city;
 	}
-
-
 
 	public Long getIdEnterprise() {
 		return idEnterprise;
@@ -88,6 +90,14 @@ public class Enterprise {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public List<SocialEvent> getSocialEvents() {
+		return socialEvents;
+	}
+
+	public void setSocialEvents(List<SocialEvent> socialEvents) {
+		this.socialEvents = socialEvents;
 	}
 
 }
