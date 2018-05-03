@@ -15,6 +15,8 @@ public interface SocialEventDao {
 	
 	public List<SocialEvent> fintByCost(int cost);
 	
+	public List<SocialEvent> fintByDateAndCty(Timestamp dateStart, Timestamp dateEnd,Long city);
+	
 	public SocialEvent findById(Long id);
 
 	public SocialEvent findByName(String name);

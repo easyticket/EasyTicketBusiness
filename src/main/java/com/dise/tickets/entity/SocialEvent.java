@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,20 +22,20 @@ public class SocialEvent implements Serializable {
 	private static final long serialVersionUID = 84444129815305507L;
 
 	@Id
-	@Column(name = "id_event")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idEvent;
+	private Long id;
 
-	@Column(name = "name_event")
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "date_start_event")
+	@Column(name = "date_start")
 	private Timestamp dateStart;
 
-	@Column(name = "date_end_event")
+	@Column(name = "date_end")
 	private Timestamp dateEnd;
 
-	@Column(name = "price_ticket_event")
+	@Column(name = "price_ticket")
 	private Long priceTicket;
 
 	@Column(name = "available_tickets")
@@ -41,12 +44,17 @@ public class SocialEvent implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_enterprise", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_soe_ent"))
+	private Enterprise enterprise;
+
 	@OneToMany(mappedBy = "socialEvent")
     private List<Ticket> tickets;
 
 	public SocialEvent() {
 		super();
 	}
+
 
 	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
 			String description) {
@@ -57,15 +65,20 @@ public class SocialEvent implements Serializable {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+
 	}
 
-	public Long getIdEvent() {
-		return idEvent;
+
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdEvent(Long idEvent) {
-		this.idEvent = idEvent;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 
 	public String getName() {
 		return name;
@@ -114,6 +127,16 @@ public class SocialEvent implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Enterprise getEnterprise() {
+		return enterprise;
+	}
+
+	public void setEnterprise(Enterprise enterprise) {
+		this.enterprise = enterprise;
+	}
+	
+	
 
 	
 	

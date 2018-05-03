@@ -36,6 +36,11 @@ public class SocialEventServiceImpl implements SocialEventService{
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
 		return socialEventDao.findByDate(dateStart, dateEnd);
 	}
+	
+	@Override
+	public List<SocialEvent> findByDateAndCity(Timestamp dateStart, Timestamp dateEnd, Long city) {
+		return socialEventDao.fintByDateAndCty(dateStart, dateEnd, city);
+	}
 
 	@Override
 	public SocialEvent findById(Long id) {
@@ -57,5 +62,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 		socialEventDao.delete(id);
 		
 	}
+
+
 
 }
