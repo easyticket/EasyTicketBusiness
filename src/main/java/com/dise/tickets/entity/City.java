@@ -1,5 +1,6 @@
 package com.dise.tickets.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,14 +13,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "city")
-public class City {
-	@Id
-	@Column(name = "id_city")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idCity;
+public class City implements Serializable{
 	
-	@Column (name="name_city")
-	private String nameCity;
+	private static final long serialVersionUID = -3481039450449750387L;
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column (name="name")
+	private String name;
 
 	@OneToMany(mappedBy = "city")
     private List<Enterprise> enterprise;
@@ -29,36 +33,32 @@ public class City {
 		super();
 	}
 
-	public City(Long idCity, String nameCity) {
+
+	public City(String name) {
 		super();
-		this.idCity = idCity;
-		this.nameCity = nameCity;
+		this.name = name;
 	}
 
-	public List<Enterprise> getEnterprise() {
-		return enterprise;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setEnterprise(List<Enterprise> enterprise) {
-		this.enterprise = enterprise;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Long getIdCity() {
-		return idCity;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setIdCity(Long idCity) {
-		this.idCity = idCity;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getNameCity() {
-		return nameCity;
-	}
 
-	public void setNameCity(String nameCity) {
-		this.nameCity = nameCity;
-	}
-	
-	
-	
+
 }
