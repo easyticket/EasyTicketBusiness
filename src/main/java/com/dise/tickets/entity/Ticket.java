@@ -21,11 +21,11 @@ public class Ticket implements Serializable{
 	@EmbeddedId
 	private TicketPk ticketpk; 
 
-	@Column(name = "state_ticket")
-	private TicketStatus ticketStatus;
+	@Column(name = "state")
+	private TicketStatus status;
 	
 	@Column(name = "number_ticket")
-	private Integer numberTicket;
+	private Integer number;
 
 	@ManyToOne
 	@JoinColumn(name = "id_event", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "FK_EVE_TIC"))
@@ -35,11 +35,35 @@ public class Ticket implements Serializable{
 		super();
 	}
 
-	public Ticket(TicketPk ticketpk, TicketStatus ticketStatus) {
+	
+
+	public Ticket(TicketStatus status, Integer number) {
 		super();
-		this.ticketpk = ticketpk;
-		this.ticketStatus = ticketStatus;
+		this.status = status;
+		this.number = number;
 	}
+
+
+
+	public TicketStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(TicketStatus status) {
+		this.status = status;
+	}
+
+
+	public Integer getNumber() {
+		return number;
+	}
+
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
 
 	public TicketPk getTicketpk() {
 		return ticketpk;
@@ -49,21 +73,6 @@ public class Ticket implements Serializable{
 		this.ticketpk = ticketpk;
 	}
 
-	public TicketStatus getTicketStatus() {
-		return ticketStatus;
-	}
-
-	public void setTicketStatus(TicketStatus ticketStatus) {
-		this.ticketStatus = ticketStatus;
-	}
-
-	public Integer getNumberTicket() {
-		return numberTicket;
-	}
-
-	public void setNumberTicket(Integer numberTicket) {
-		this.numberTicket = numberTicket;
-	}
 
 	public SocialEvent getSocialEvent() {
 		return socialEvent;

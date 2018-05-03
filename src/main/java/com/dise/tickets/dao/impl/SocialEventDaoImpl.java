@@ -29,7 +29,7 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 	public List<SocialEvent> fintByDateAndCty(Timestamp dateStart, Timestamp dateEnd, Long city) {
 		return getSession().createQuery("FROM SocialEvent as se inner join fetch se.enterprise as ent "
 				+ "	inner join fetch ent.city as city "
-				+ " WHERE city.idCity = :city "
+				+ " WHERE city.id = :city "
 				+ " AND  se.dateStart BETWEEN :dateStart AND :dateEnd ")
 				.setParameter("city", city).
 				setParameter("dateStart", dateStart).

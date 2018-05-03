@@ -1,5 +1,6 @@
 package com.dise.tickets.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,21 +16,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "enterprise")
-public class Enterprise {
+public class Enterprise implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5850597017800494912L;
 
 	@Id
-	@Column(name = "id_enterprise")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idEnterprise;
+	private Long id;
 
-	@Column(name = "enterprise_name")
-	private String enterpriseName;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "enterprise_address")
-	private String enterpriseAddress;
+	@Column(name = "address")
+	private String address;
 
-	@Column(name = "enterprise_phone")
-	private String enterprisePhone;
+	@Column(name = "phone")
+	private String phone;
 
 	@ManyToOne
 	@JoinColumn(name = "id_city", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_ent_cit"))
@@ -42,46 +48,43 @@ public class Enterprise {
 		super();
 	}
 
-	public Enterprise(Long idEnterprise, String enterpriseName, String enterpriseAddress, String enterprisePhone,
-			City city) {
+	public Enterprise(String name, String address, String phone) {
 		super();
-		this.idEnterprise = idEnterprise;
-		this.enterpriseName = enterpriseName;
-		this.enterpriseAddress = enterpriseAddress;
-		this.enterprisePhone = enterprisePhone;
-		this.city = city;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
 	}
 
-	public Long getIdEnterprise() {
-		return idEnterprise;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdEnterprise(Long idEnterprise) {
-		this.idEnterprise = idEnterprise;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getEnterpriseName() {
-		return enterpriseName;
+	public String getName() {
+		return name;
 	}
 
-	public void setEnterpriseName(String enterpriseName) {
-		this.enterpriseName = enterpriseName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getEnterpriseAddress() {
-		return enterpriseAddress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setEnterpriseAddress(String enterpriseAddress) {
-		this.enterpriseAddress = enterpriseAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getEnterprisePhone() {
-		return enterprisePhone;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setEnterprisePhone(String enterprisePhone) {
-		this.enterprisePhone = enterprisePhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public City getCity() {
@@ -91,13 +94,6 @@ public class Enterprise {
 	public void setCity(City city) {
 		this.city = city;
 	}
-
-	public List<SocialEvent> getSocialEvents() {
-		return socialEvents;
-	}
-
-	public void setSocialEvents(List<SocialEvent> socialEvents) {
-		this.socialEvents = socialEvents;
-	}
+	
 
 }

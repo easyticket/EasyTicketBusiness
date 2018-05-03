@@ -16,7 +16,7 @@ public class TicketPk implements Serializable{
 	@Column(name="id_event")
 	private Long idSocialEvent;
 	
-	@Column(name="id_ticket")
+	@Column(name="id")
 	private String idTicket;
 
 	public TicketPk() {

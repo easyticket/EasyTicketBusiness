@@ -3,7 +3,6 @@ package com.dise.tickets.service.impl;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -61,11 +60,11 @@ public class TicketServiceImpl implements TicketService{
 		ticket.setTicketpk(createPkTicket(ticketRequest));
 
 		SocialEvent socialEvent = new SocialEvent();
-		socialEvent.setIdEvent(ticketRequest.getIdEvent());
+		socialEvent.setId(ticketRequest.getIdEvent());
 		ticket.setSocialEvent(socialEvent);
 		
-		ticket.setNumberTicket(generateNumberTicket());
-		ticket.setTicketStatus(TicketStatus.GENERATE);
+		ticket.setNumber(generateNumberTicket());
+		ticket.setStatus(TicketStatus.GENERATE);
 		
 		save(ticket);
 		
@@ -100,11 +99,11 @@ public class TicketServiceImpl implements TicketService{
 		
 			TicketResponse ticketResponse = new TicketResponse();
 			
-			ticketResponse.setAddress("");
+			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
 			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
 			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
 			ticketResponse.setDate(formatterDate(ticketQuery.getSocialEvent().getDateStart()));
-			ticketResponse.setNumber(ticketQuery.getNumberTicket().toString());
+			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			return ticketResponse;
 		
 	}

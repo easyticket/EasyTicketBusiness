@@ -22,20 +22,20 @@ public class SocialEvent implements Serializable {
 	private static final long serialVersionUID = 84444129815305507L;
 
 	@Id
-	@Column(name = "id_event")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idEvent;
+	private Long id;
 
-	@Column(name = "name_event")
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "date_start_event")
+	@Column(name = "date_start")
 	private Timestamp dateStart;
 
-	@Column(name = "date_end_event")
+	@Column(name = "date_end")
 	private Timestamp dateEnd;
 
-	@Column(name = "price_ticket_event")
+	@Column(name = "price_ticket")
 	private Long priceTicket;
 
 	@Column(name = "available_tickets")
@@ -68,13 +68,17 @@ public class SocialEvent implements Serializable {
 
 	}
 
-	public Long getIdEvent() {
-		return idEvent;
+
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdEvent(Long idEvent) {
-		this.idEvent = idEvent;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 
 	public String getName() {
 		return name;
