@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dise.tickets.entity.SocialEvent;
 import com.dise.tickets.service.SocialEventService;
+import com.dise.tickets.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/v1")
@@ -29,7 +30,7 @@ public class SocialEventController {
 		List<SocialEvent> socialEvents = new ArrayList<>();
 		socialEvents = socialEventService.findAll();
 		if (socialEvents.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity(new CustomErrorType("Not found events"),HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
