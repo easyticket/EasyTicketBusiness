@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -44,6 +45,7 @@ public class TicketController {
 		
 	}
 	//GET
+	@CrossOrigin(origins ="*")
 	@RequestMapping(value="/ticket/{socialEventId}/{ticketNumber}", method = RequestMethod.GET)
 	public ResponseEntity<Ticket> getTicket(@PathVariable("socialEventId") Long idSocialEvent,@PathVariable("ticketNumber") String ticketNumber){
 		Ticket ticket = new Ticket();
@@ -64,7 +66,7 @@ public class TicketController {
 
 	}
 	
-	
+	@CrossOrigin(origins ="*")
 	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
