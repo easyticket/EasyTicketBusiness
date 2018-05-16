@@ -22,6 +22,7 @@
 hs_err_pid*
 /.metadata/
 
-target
-.settings
-.metadata
+target/
+.settings/
+.mvn/
+.metadata/
