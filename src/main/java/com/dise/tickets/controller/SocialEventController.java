@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,14 @@ import com.dise.tickets.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/v1")
+
 public class SocialEventController {
 
 	@Autowired
 	SocialEventService socialEventService;
 
 	// GET
+	@CrossOrigin(origins ="*")
 	@RequestMapping(value = "/socialEvent", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<List<SocialEvent>> getSocialEvent() {
 		List<SocialEvent> socialEvents = new ArrayList<>();
@@ -80,6 +83,7 @@ public class SocialEventController {
 	
 
 	// POST
+	
 	@RequestMapping(value = "/socialEvent", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<?> postSocialEvent(@RequestBody SocialEvent socialEvent) {
 
