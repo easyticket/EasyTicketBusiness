@@ -20,7 +20,6 @@ import com.dise.tickets.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/v1")
-
 public class SocialEventController {
 
 	@Autowired
@@ -40,6 +39,20 @@ public class SocialEventController {
 
 	}
 
+	@CrossOrigin(origins ="*")
+	@RequestMapping(value = "/socialEvent/{category}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<List<SocialEvent>> getSocialEvent(@PathVariable("category") Long category) {
+		List<SocialEvent> socialEvents = new ArrayList<>();
+		socialEvents = socialEventService.findByCategory(category);
+		if (socialEvents.isEmpty()) {
+			return new ResponseEntity(new CustomErrorType("Not found events"),HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
+
+	}
+
+	
 	// GET
 	@RequestMapping(value = "/socialEvent/{dateStart}/{dateEnd}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<List<SocialEvent>> getSocialEventForDate(@PathVariable("dateStart") Timestamp dateStart,
@@ -69,18 +82,18 @@ public class SocialEventController {
 	}
 
 	// GET
-	@RequestMapping(value = "/socialEvent/{cost}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<SocialEvent>> getSocialEventForCost(@PathVariable("cost") int cost) {
-		List<SocialEvent> socialEvents = new ArrayList<>();
-		socialEvents = socialEventService.findByCost(cost);
-		if (socialEvents.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-
-		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
-
-	}
-	
+//	@RequestMapping(value = "/socialEvent/{cost}", method = RequestMethod.GET, headers = "Accept=application/json")
+//	public ResponseEntity<List<SocialEvent>> getSocialEventForCost(@PathVariable("cost") int cost) {
+//		List<SocialEvent> socialEvents = new ArrayList<>();
+//		socialEvents = socialEventService.findByCost(cost);
+//		if (socialEvents.isEmpty()) {
+//			return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		}
+//
+//		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
+//
+//	}
+//	
 
 	// POST
 	
