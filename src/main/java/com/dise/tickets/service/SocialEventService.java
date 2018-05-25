@@ -16,6 +16,8 @@ public interface SocialEventService {
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd);
 	
 	public List<SocialEvent> findByDateAndCity(Timestamp dateStart, Timestamp dateEnd,Long city);
+	
+	public List<SocialEvent> findByCategory(Long category);
 
 	public SocialEvent findById(Long id);
 

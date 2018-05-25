@@ -48,6 +48,10 @@ public class SocialEvent implements Serializable {
 	@JoinColumn(name = "id_enterprise", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_soe_ent"))
 	private Enterprise enterprise;
 
+	@ManyToOne
+	@JoinColumn(name = "id_category", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_soe_cat"))
+	private Category category;
+	
 	@OneToMany(mappedBy = "socialEvent")
     private List<Ticket> tickets;
 

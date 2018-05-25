@@ -24,9 +24,12 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 		return getSession().createQuery("from SocialEvent").list();
 	}
 	
+
+
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SocialEvent> fintByDateAndCty(Timestamp dateStart, Timestamp dateEnd, Long city) {
+	public List<SocialEvent> findByDateAndCty(Timestamp dateStart, Timestamp dateEnd, Long city) {
 		return getSession().createQuery("FROM SocialEvent as se inner join fetch se.enterprise as ent "
 				+ "	inner join fetch ent.city as city "
 				+ " WHERE city.id = :city "
@@ -38,7 +41,7 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 
 
 	@Override
-	public List<SocialEvent> fintByCost(int cost) {
+	public List<SocialEvent> findByCost(int cost) {
 		return getSession().createQuery("FROM SocialEvent WHERE priceTicket = :cost ")
 				.setParameter("cost", cost).list();
 	}
@@ -48,7 +51,14 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 		return getSession().createQuery("FROM SocialEvent WHERE dateStart BETWEEN :dateStart AND :dateEnd ")
 				.setParameter("dateStart", dateStart).setParameter("dateEnd", dateEnd).list();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SocialEvent> findByCategory(Long category) {
+		return getSession().createQuery("FROM SocialEvent as se inner join fetch se.category as cat WHERE cat.id = :category ")
+				.setParameter("category", category).list();
+	}
+	
 	@Override
 	public SocialEvent findById(Long id) {
 		return (SocialEvent) getSession().get(SocialEvent.class, id);
