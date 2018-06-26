@@ -139,6 +139,16 @@ public class SocialEvent implements Serializable {
 	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
 	}
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	
 	
 
