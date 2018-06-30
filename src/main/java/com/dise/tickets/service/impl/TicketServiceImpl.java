@@ -18,6 +18,7 @@ import com.dise.tickets.enums.TicketStatus;
 import com.dise.tickets.model.TicketRequest;
 import com.dise.tickets.model.TicketResponse;
 import com.dise.tickets.service.TicketService;
+import com.dise.tickets.util.DateSetup;
 
 @Service
 @Transactional
@@ -86,12 +87,7 @@ public class TicketServiceImpl implements TicketService{
 	private Integer generateNumberTicket() {
 		return (int) (Math.random() * 1000) + 1;
 	}
-	
-	// move to utils
-	private String formatterDate(Timestamp timesTamp) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		return dateFormat.format(timesTamp);
-	}
+
 
 	@Override
 	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
@@ -102,7 +98,7 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
 			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
 			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
-			ticketResponse.setDate(formatterDate(ticketQuery.getSocialEvent().getDateStart()));
+			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			return ticketResponse;
 		
