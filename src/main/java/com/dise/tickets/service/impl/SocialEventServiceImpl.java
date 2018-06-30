@@ -30,7 +30,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 	}
 	@Override
 	public List<SocialEvent> findByCost(int cost) {
-		return socialEventDao.fintByCost(cost);
+		return socialEventDao.findByCost(cost);
 	}
 	@Override
 	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
@@ -39,8 +39,14 @@ public class SocialEventServiceImpl implements SocialEventService{
 	
 	@Override
 	public List<SocialEvent> findByDateAndCity(Timestamp dateStart, Timestamp dateEnd, Long city) {
-		return socialEventDao.fintByDateAndCty(dateStart, dateEnd, city);
+		return socialEventDao.findByDateAndCty(dateStart, dateEnd, city);
 	}
+	
+	@Override
+	public List<SocialEvent> findByCategory(Long category) {
+		return socialEventDao.findByCategory(category);
+	}
+
 
 	@Override
 	public SocialEvent findById(Long id) {
@@ -62,6 +68,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 		socialEventDao.delete(id);
 		
 	}
+
 
 
 
