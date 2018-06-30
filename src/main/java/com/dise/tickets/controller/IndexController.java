@@ -9,7 +9,7 @@ public class IndexController {
 	@RequestMapping("/")
 	@ResponseBody
 	public String index() {
-		String response = "bienvenido a EasyTicket";
+		String response = "bienvenido a EasyTicket!!";
 		return response;
 	}
 
