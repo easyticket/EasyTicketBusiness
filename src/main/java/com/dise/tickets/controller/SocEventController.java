@@ -17,9 +17,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dise.tickets.entity.SocialEvent;
+import com.dise.tickets.enums.ExceptionsController;
+import com.dise.tickets.enums.ExceptionsModules;
+import com.dise.tickets.enums.ExceptionsOperations;
+import com.dise.tickets.enums.ExceptionsSpecificError;
 import com.dise.tickets.model.SocialEventResponse;
 import com.dise.tickets.service.SocialEventService;
+import com.dise.tickets.util.CreateMessageError;
 import com.dise.tickets.util.CustomErrorType;
+import com.dise.tickets.util.ServiceExceptions;
 
 @RestController
 @RequestMapping("/v1")
@@ -46,13 +52,14 @@ public class SocEventController {
 	@RequestMapping(value = "/socialEvent/{category}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<SocialEventResponse> getSocialEvent(@PathVariable("category") Long category) {
+	public List<SocialEventResponse> getSocialEvent(@PathVariable("category") Long category) throws ServiceExceptions {
 		List<SocialEventResponse> socialEvents = new ArrayList<>();
 		socialEvents = socialEventService.findEventByCategory(category);
-		/*if (socialEvents.isEmpty()) {
-			return new ResponseEntity(new CustomErrorType("Not found events"),HttpStatus.NO_CONTENT);
-		}*/
-		return socialEvents;
+		if (socialEvents.isEmpty()) {
+			CreateMessageError cr = new CreateMessageError(ExceptionsModules.BUSUNESS, ExceptionsController.SOCIALEVENT, ExceptionsOperations.GET, ExceptionsSpecificError.ISEMPTY);
+			throw new ServiceExceptions(cr.fullMessageError());
+		}
+		return socialEvents;	
 
 	}
 
