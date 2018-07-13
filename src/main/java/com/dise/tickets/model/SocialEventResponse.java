@@ -17,13 +17,15 @@ public class SocialEventResponse {
 	private Integer availableTickets;
 
 	private String description;
+	
+	private String address;
 
 	public SocialEventResponse() {
 		super();
 	}
 
 	public SocialEventResponse(Long id, String name, String dateStart, String dateEnd, Long priceTicket,
-			Integer availableTickets, String description) {
+			Integer availableTickets, String description,String address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,6 +34,7 @@ public class SocialEventResponse {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+		this.address=address;
 	}
 
 	public Long getId() {
@@ -90,6 +93,14 @@ public class SocialEventResponse {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 }

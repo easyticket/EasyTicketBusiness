@@ -20,7 +20,7 @@ public interface SocialEventService {
 	
 	public List<SocialEventResponse> findEventByCategory(Long category);
 
-	public SocialEvent findById(Long id);
+	public SocialEventResponse findById(Long id);
 
 	public SocialEvent findByName(String name);
 

@@ -44,6 +44,9 @@ public class SocialEvent implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "address")
+	private String address;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_enterprise", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_soe_ent"))
 	private Enterprise enterprise;
@@ -61,7 +64,7 @@ public class SocialEvent implements Serializable {
 
 
 	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
-			String description) {
+			String description, String address) {
 		super();
 		this.name = name;
 		this.dateStart = dateStart;
@@ -69,6 +72,7 @@ public class SocialEvent implements Serializable {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+		this.address = address;
 
 	}
 
@@ -148,6 +152,16 @@ public class SocialEvent implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
