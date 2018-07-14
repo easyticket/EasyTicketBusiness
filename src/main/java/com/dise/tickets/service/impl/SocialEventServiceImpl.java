@@ -16,6 +16,8 @@ import com.dise.tickets.model.SocialEventResponse;
 import com.dise.tickets.service.SocialEventService;
 import com.dise.tickets.util.DateSetup;
 
+import ma.glasnost.orika.MapperFactory;
+
 @Service
 @Transactional
 public class SocialEventServiceImpl implements SocialEventService{
