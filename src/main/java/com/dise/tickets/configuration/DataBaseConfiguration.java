@@ -34,12 +34,12 @@ public class DataBaseConfiguration {
 	public DataSource dataSource() { // configuira datos de conexion
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_ccf4d83b0f4446b?useSSL=false");
-		dataSource.setUsername("b4986a9338ddd7");
-		dataSource.setPassword("aaafde94");
-//		dataSource.setUrl("jdbc:mysql://localhost:3306/easyTicket?useSSL=false");
-//		dataSource.setUsername("userdev");
-//		dataSource.setPassword("password");
+//		dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_ccf4d83b0f4446b?useSSL=false");
+//		dataSource.setUsername("b4986a9338ddd7");
+//		dataSource.setPassword("aaafde94");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/easyTicket?useSSL=false");
+		dataSource.setUsername("userdev");
+		dataSource.setPassword("password");
 		return dataSource;
 	}
 	
