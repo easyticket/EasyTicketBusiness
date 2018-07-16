@@ -16,6 +16,8 @@ import com.dise.tickets.model.SocialEventResponse;
 import com.dise.tickets.service.SocialEventService;
 import com.dise.tickets.util.DateSetup;
 
+import ma.glasnost.orika.MapperFactory;
+
 @Service
 @Transactional
 public class SocialEventServiceImpl implements SocialEventService{
@@ -58,7 +60,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 		for(SocialEvent se:eventsEntity) {
 			SocialEventResponse socialEventResponse =
 					new SocialEventResponse(se.getId(), se.getName(), DateSetup.formatterDate(se.getDateStart()), DateSetup.formatterDate(se.getDateEnd()), se.getPriceTicket(),
-							se.getAvailableTickets(), se.getDescription());
+							se.getAvailableTickets(), se.getDescription(),se.getLatitude(),se.getLongitude(),se.getAddress());
 			events.add(socialEventResponse);
 		}
 		return events;
@@ -66,10 +68,17 @@ public class SocialEventServiceImpl implements SocialEventService{
 
 
 	@Override
-	public SocialEvent findById(Long id) {
-		return socialEventDao.findById(id);
+	public SocialEventResponse findById(Long id) {
+		
+		return convertEntityToModel(socialEventDao.findById(id));
 	}
-
+	
+	public SocialEventResponse convertEntityToModel(SocialEvent eventEntity){
+		SocialEventResponse socialEventResponse =
+				new SocialEventResponse(eventEntity.getId(), eventEntity.getName(), DateSetup.formatterDate(eventEntity.getDateStart()), DateSetup.formatterDate(eventEntity.getDateEnd()), eventEntity.getPriceTicket(),
+						eventEntity.getAvailableTickets(), eventEntity.getDescription(),eventEntity.getLatitude(),eventEntity.getLongitude(), eventEntity.getAddress());
+	return socialEventResponse;
+}
 	@Override
 	public SocialEvent findByName(String name) {
 		return socialEventDao.findByName(name);

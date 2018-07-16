@@ -37,10 +37,13 @@ public class DataBaseConfiguration {
 		dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_ccf4d83b0f4446b?useSSL=false");
 		dataSource.setUsername("b4986a9338ddd7");
 		dataSource.setPassword("aaafde94");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/easyTicket?useSSL=false");
+//		dataSource.setUsername("userdev");
+//		dataSource.setPassword("password");
 		return dataSource;
 	}
 	
-	//metodo de propiedades de hibernate 
+	//metodo de propiedades de hibernate  
 	public Properties hibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");

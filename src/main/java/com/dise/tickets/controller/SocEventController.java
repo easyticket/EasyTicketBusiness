@@ -43,12 +43,26 @@ public class SocEventController {
 	}
 
 	@CrossOrigin(origins ="*")
-	@RequestMapping(value = "/socialEvent/{category}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "/socialEvents/{category}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public List<SocialEventResponse> getSocialEvent(@PathVariable("category") Long category) {
 		List<SocialEventResponse> socialEvents = new ArrayList<>();
 		socialEvents = socialEventService.findEventByCategory(category);
+		/*if (socialEvents.isEmpty()) {
+			return new ResponseEntity(new CustomErrorType("Not found events"),HttpStatus.NO_CONTENT);
+		}*/
+		return socialEvents;
+
+	}
+	
+	@CrossOrigin(origins ="*")
+	@RequestMapping(value = "/socialEventById/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public SocialEventResponse getSocialEvents(@PathVariable("id") Long id) {
+		SocialEventResponse socialEvents;
+		socialEvents = socialEventService.findById(id);
 		/*if (socialEvents.isEmpty()) {
 			return new ResponseEntity(new CustomErrorType("Not found events"),HttpStatus.NO_CONTENT);
 		}*/
