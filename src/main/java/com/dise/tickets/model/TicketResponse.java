@@ -7,6 +7,7 @@ public class TicketResponse {
 	private String address;
 	private String number;
 	private Long cost;
+	private String hash;
 	
 	public TicketResponse() {
 		super();
@@ -41,6 +42,12 @@ public class TicketResponse {
 	}
 	public void setCost(Long cost) {
 		this.cost = cost;
+	}
+	public String getHash() {
+		return hash;
+	}
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 	
 }

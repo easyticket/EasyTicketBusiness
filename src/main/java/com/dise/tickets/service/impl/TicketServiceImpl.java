@@ -1,7 +1,5 @@
 package com.dise.tickets.service.impl;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,7 +61,7 @@ public class TicketServiceImpl implements TicketService{
 		SocialEvent socialEvent = new SocialEvent();
 		socialEvent.setId(ticketRequest.getIdEvent());
 		ticket.setSocialEvent(socialEvent);
-		
+		ticket.setIdentificationUser(ticketRequest.getIdentification());
 		ticket.setNumber(generateNumberTicket());
 		ticket.setStatus(TicketStatus.GENERATE);
 		
@@ -88,7 +86,6 @@ public class TicketServiceImpl implements TicketService{
 		return (int) (Math.random() * 1000) + 1;
 	}
 
-
 	@Override
 	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
 			Ticket ticketQuery = findById(ticketPk);
@@ -100,9 +97,7 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
 			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
-			return ticketResponse;
-		
+			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
+			return ticketResponse;	
 	}
-	
-
 }

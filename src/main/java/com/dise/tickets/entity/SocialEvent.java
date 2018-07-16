@@ -44,6 +44,12 @@ public class SocialEvent implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "latitude")
+	private String latitude;
+
+	@Column(name = "longitude")
+	private String longitude;
+	
 	@Column(name = "address")
 	private String address;
 	
@@ -64,7 +70,7 @@ public class SocialEvent implements Serializable {
 
 
 	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
-			String description, String address) {
+			String description,String latitude,String longitude, String address) {
 		super();
 		this.name = name;
 		this.dateStart = dateStart;
@@ -72,6 +78,8 @@ public class SocialEvent implements Serializable {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.address = address;
 
 	}
@@ -162,6 +170,26 @@ public class SocialEvent implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	
 	
