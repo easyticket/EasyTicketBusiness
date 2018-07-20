@@ -1,5 +1,6 @@
 package com.dise.tickets.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 		for(SocialEvent se:eventsEntity) {
 			SocialEventResponse socialEventResponse =
 					new SocialEventResponse(se.getId(), se.getName(), DateSetup.formatterDate(se.getDateStart()), DateSetup.formatterDate(se.getDateEnd()), se.getPriceTicket(),
-							se.getAvailableTickets(), se.getDescription(),se.getLatitude(),se.getLongitude(),se.getAddress());
+							se.getAvailableTickets(), se.getDescription(),  new BigDecimal(se.getLatitude().trim()),  new BigDecimal(se.getLongitude().trim()),se.getAddress());
 			events.add(socialEventResponse);
 		}
 		return events;
@@ -76,7 +77,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 	public SocialEventResponse convertEntityToModel(SocialEvent eventEntity){
 		SocialEventResponse socialEventResponse =
 				new SocialEventResponse(eventEntity.getId(), eventEntity.getName(), DateSetup.formatterDate(eventEntity.getDateStart()), DateSetup.formatterDate(eventEntity.getDateEnd()), eventEntity.getPriceTicket(),
-						eventEntity.getAvailableTickets(), eventEntity.getDescription(),eventEntity.getLatitude(),eventEntity.getLongitude(), eventEntity.getAddress());
+						eventEntity.getAvailableTickets(), eventEntity.getDescription(),   new BigDecimal(eventEntity.getLatitude().trim()),   new BigDecimal(eventEntity.getLongitude().trim()), eventEntity.getAddress());
 	return socialEventResponse;
 }
 	@Override
