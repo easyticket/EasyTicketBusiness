@@ -1,5 +1,6 @@
 package com.dise.tickets.model;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class SocialEventResponse {
@@ -17,13 +18,19 @@ public class SocialEventResponse {
 	private Integer availableTickets;
 
 	private String description;
+	
+	private BigDecimal latitude;
+	
+	private BigDecimal longitude;
+	
+	private String address;
 
 	public SocialEventResponse() {
 		super();
 	}
 
 	public SocialEventResponse(Long id, String name, String dateStart, String dateEnd, Long priceTicket,
-			Integer availableTickets, String description) {
+			Integer availableTickets, String description, BigDecimal latitude, BigDecimal longitude,String address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,6 +39,9 @@ public class SocialEventResponse {
 		this.priceTicket = priceTicket;
 		this.availableTickets = availableTickets;
 		this.description = description;
+		this.latitude = latitude;
+		this.longitude = longitude;		
+		this.address=address;
 	}
 
 	public Long getId() {
@@ -90,6 +100,30 @@ public class SocialEventResponse {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public BigDecimal getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(BigDecimal latitude) {
+		this.latitude = latitude;
+	}
+
+	public BigDecimal getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(BigDecimal longitude) {
+		this.longitude = longitude;
 	}
 	
 }
