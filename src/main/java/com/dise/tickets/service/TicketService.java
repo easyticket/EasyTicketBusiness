@@ -20,7 +20,9 @@ public interface TicketService {
 
 	public void delete(TicketPk ticketPk);
 	
-	public TicketPk createTicket(TicketRequest ticketRequest);
+	public List<TicketPk> createTicket(TicketRequest ticketRequest);
+
+	public  List<TicketResponse> buildTicketResponse(List<TicketPk> ticketPk);
 	
-	public  TicketResponse buildTicketResponse(TicketPk ticketPk);
+
 }

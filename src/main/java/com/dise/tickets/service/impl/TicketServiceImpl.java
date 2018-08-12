@@ -1,5 +1,6 @@
 package com.dise.tickets.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,8 +52,12 @@ public class TicketServiceImpl implements TicketService{
 		ticketDao.delete(ticketPk);		
 	}
 
+	
 	@Override
-	public TicketPk createTicket(TicketRequest ticketRequest) {
+	public List<TicketPk> createTicket(TicketRequest ticketRequest) {
+			
+		List<TicketPk> list = new ArrayList<>();
+		for (int i = 0; i <ticketRequest.getQuantity(); i++) {
 			
 		Ticket ticket = new Ticket();
 	
@@ -66,8 +71,10 @@ public class TicketServiceImpl implements TicketService{
 		ticket.setStatus(TicketStatus.GENERATE);
 		
 		save(ticket);
+		list.add( ticket.getTicketpk());
+		}
 		
-		return ticket.getTicketpk();
+		return list;
 		
 	}
 	
@@ -86,9 +93,15 @@ public class TicketServiceImpl implements TicketService{
 		return (int) (Math.random() * 1000) + 1;
 	}
 
+
 	@Override
-	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
-			Ticket ticketQuery = findById(ticketPk);
+	public List<TicketResponse> buildTicketResponse(List<TicketPk> ticketPk) {
+		
+		List<TicketResponse> list = new ArrayList<>();
+		
+		for (TicketPk tp:ticketPk) {
+			
+			Ticket ticketQuery = findById(tp);
 		
 			TicketResponse ticketResponse = new TicketResponse();
 			
@@ -98,6 +111,10 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
-			return ticketResponse;	
+			
+			list.add(ticketResponse);
+		}
+			return list;	
 	}
+
 }
