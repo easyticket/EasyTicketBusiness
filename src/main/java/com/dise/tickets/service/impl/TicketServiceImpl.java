@@ -1,5 +1,6 @@
 package com.dise.tickets.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,8 +52,31 @@ public class TicketServiceImpl implements TicketService{
 		ticketDao.delete(ticketPk);		
 	}
 
+//	@Override
+//	public TicketPk createTicket(TicketRequest ticketRequest) {
+//			
+//		Ticket ticket = new Ticket();
+//	
+//		ticket.setTicketpk(createPkTicket(ticketRequest));
+//
+//		SocialEvent socialEvent = new SocialEvent();
+//		socialEvent.setId(ticketRequest.getIdEvent());
+//		ticket.setSocialEvent(socialEvent);
+//		ticket.setIdentificationUser(ticketRequest.getIdentification());
+//		ticket.setNumber(generateNumberTicket());
+//		ticket.setStatus(TicketStatus.GENERATE);
+//		
+//		save(ticket);
+//		
+//		return ticket.getTicketpk();
+//		
+//	}
+	
 	@Override
-	public TicketPk createTicket(TicketRequest ticketRequest) {
+	public List<TicketPk> createTicket(TicketRequest ticketRequest) {
+			
+		List<TicketPk> list = new ArrayList<>();
+		for (int i = 0; i <ticketRequest.getQuantity(); i++) {
 			
 		Ticket ticket = new Ticket();
 	
@@ -66,8 +90,10 @@ public class TicketServiceImpl implements TicketService{
 		ticket.setStatus(TicketStatus.GENERATE);
 		
 		save(ticket);
+		list.add( ticket.getTicketpk());
+		}
 		
-		return ticket.getTicketpk();
+		return list;
 		
 	}
 	
@@ -86,9 +112,15 @@ public class TicketServiceImpl implements TicketService{
 		return (int) (Math.random() * 1000) + 1;
 	}
 
+
 	@Override
-	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
-			Ticket ticketQuery = findById(ticketPk);
+	public List<TicketResponse> buildTicketResponse(List<TicketPk> ticketPk) {
+		
+		List<TicketResponse> list = new ArrayList<>();
+		
+		for (int i = 0; i < ticketPk.size(); i++) {
+			
+			Ticket ticketQuery = findById(ticketPk.get(i));
 		
 			TicketResponse ticketResponse = new TicketResponse();
 			
@@ -98,6 +130,24 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
-			return ticketResponse;	
+			
+			list.add(ticketResponse);
+		}
+			return list;	
 	}
+//	@Override
+//	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
+//			Ticket ticketQuery = findById(ticketPk);
+//		
+//			TicketResponse ticketResponse = new TicketResponse();
+//			
+//			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
+//			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
+//			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
+//			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
+//			ticketResponse.setNumber(ticketQuery.getNumber().toString());
+//			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
+//			return ticketResponse;	
+//	}
+//	
 }
