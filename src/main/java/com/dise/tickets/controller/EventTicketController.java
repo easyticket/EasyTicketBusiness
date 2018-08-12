@@ -75,14 +75,5 @@ public class EventTicketController {
 
 	}
 	
-//	@CrossOrigin(origins = "*")
-//	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
-//	@ResponseStatus(HttpStatus.OK)
-//	@ResponseBody
-//	public TicketResponse createTicket(@Valid @RequestBody TicketRequest ticketRequest) {
-//		TicketPk ticketPk = ticketService.createTicket(ticketRequest);
-//		return ticketService.buildTicketResponse(ticketPk);
-//
-//	}
 
 }

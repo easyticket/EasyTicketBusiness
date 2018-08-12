@@ -52,25 +52,6 @@ public class TicketServiceImpl implements TicketService{
 		ticketDao.delete(ticketPk);		
 	}
 
-//	@Override
-//	public TicketPk createTicket(TicketRequest ticketRequest) {
-//			
-//		Ticket ticket = new Ticket();
-//	
-//		ticket.setTicketpk(createPkTicket(ticketRequest));
-//
-//		SocialEvent socialEvent = new SocialEvent();
-//		socialEvent.setId(ticketRequest.getIdEvent());
-//		ticket.setSocialEvent(socialEvent);
-//		ticket.setIdentificationUser(ticketRequest.getIdentification());
-//		ticket.setNumber(generateNumberTicket());
-//		ticket.setStatus(TicketStatus.GENERATE);
-//		
-//		save(ticket);
-//		
-//		return ticket.getTicketpk();
-//		
-//	}
 	
 	@Override
 	public List<TicketPk> createTicket(TicketRequest ticketRequest) {
@@ -118,9 +99,9 @@ public class TicketServiceImpl implements TicketService{
 		
 		List<TicketResponse> list = new ArrayList<>();
 		
-		for (int i = 0; i < ticketPk.size(); i++) {
+		for (TicketPk tp:ticketPk) {
 			
-			Ticket ticketQuery = findById(ticketPk.get(i));
+			Ticket ticketQuery = findById(tp);
 		
 			TicketResponse ticketResponse = new TicketResponse();
 			
@@ -135,19 +116,5 @@ public class TicketServiceImpl implements TicketService{
 		}
 			return list;	
 	}
-//	@Override
-//	public TicketResponse buildTicketResponse(TicketPk ticketPk) {
-//			Ticket ticketQuery = findById(ticketPk);
-//		
-//			TicketResponse ticketResponse = new TicketResponse();
-//			
-//			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
-//			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
-//			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
-//			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
-//			ticketResponse.setNumber(ticketQuery.getNumber().toString());
-//			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
-//			return ticketResponse;	
-//	}
-//	
+
 }
