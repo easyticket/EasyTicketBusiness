@@ -23,6 +23,9 @@ public class TicketRequest {
 	@NotNull
 	private String surNames;
 	
+	@NotNull
+	private int quantity;
+	
 	public TicketRequest() {
 		super();
 	}
@@ -56,6 +59,12 @@ public class TicketRequest {
 	}
 	public void setSurNames(String surNames) {
 		this.surNames = surNames;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	

@@ -69,10 +69,11 @@ public class EventTicketController {
 	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public TicketResponse createTicket(@Valid @RequestBody TicketRequest ticketRequest) {
-		TicketPk ticketPk = ticketService.createTicket(ticketRequest);
+	public List<TicketResponse> createTicket(@Valid @RequestBody TicketRequest ticketRequest) {
+		List<TicketPk> ticketPk = ticketService.createTicket(ticketRequest);
 		return ticketService.buildTicketResponse(ticketPk);
 
 	}
+	
 
 }
