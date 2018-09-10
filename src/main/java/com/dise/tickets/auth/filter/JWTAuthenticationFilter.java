@@ -24,18 +24,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
+public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager autenticationManager;
-	
-	
-	
+
 	public JWTAuthenticationFilter(AuthenticationManager autenticationManager) {
 		this.autenticationManager = autenticationManager;
-		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/v1/login","POST"));
+		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/v1/login", "POST"));
 	}
-
-
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -50,50 +46,43 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		if (password == null) {
 			password = "";
 		}
-		
-		if (username!=null&&password!=null) {
-			logger.info("User desde form-data "+username);
-			logger.info("Pass desde form-data "+password);
+
+		if (username != null && password != null) {
+			logger.info("User desde form-data " + username);
+			logger.info("Pass desde form-data " + password);
 
 		}
-		
+
 		username = username.trim();
-		
+
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
 		return autenticationManager.authenticate(authToken);
 	}
-
-
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((User) authResult.getPrincipal()).getUsername();
 		KeyPairGenerator kpg;
-		KeyPair kp =null;
+		KeyPair kp = null;
 		try {
 			kpg = KeyPairGenerator.getInstance("RSA");
-			kp= kpg.generateKeyPair();
+			kp = kpg.generateKeyPair();
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String token = Jwts.builder()
-				.setSubject(username)
-				.signWith(kp.getPrivate())
-				.compact();
-		response.addHeader("Authorization", "Bearer "+token);
-		
+		String token = Jwts.builder().setSubject(username).signWith(kp.getPrivate()).compact();
+		response.addHeader("Authorization", "Bearer " + token);
+
 		Map<String, Object> body = new HashMap<>();
-		
-		body.put("token",token);
-		body.put("user",(User) authResult.getPrincipal());
-		body.put("mensaje","Hola perra");
+
+		body.put("token", token);
+		body.put("user", (User) authResult.getPrincipal());
+		body.put("mensaje", "Hola perra");
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
 		response.setContentType("aplication/json");
 	}
-	
-	
 
 }

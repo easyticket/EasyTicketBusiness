@@ -16,9 +16,6 @@ import javax.persistence.Table;
 @Table(name = "user_ticket")
 public class UserTicket implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6753849588006962772L;
 	
 	@Id
@@ -31,9 +28,6 @@ public class UserTicket implements Serializable{
 	
 	@Column(name = "pass")
 	private String pass;
-	
-	@Column(name = "address")
-	private String address;
 	
 	@Column(name = "email")
 	private String email;
@@ -50,11 +44,10 @@ public class UserTicket implements Serializable{
 		super();
 	}
 
-	public UserTicket(String username, String pass, String address, String email) {
+	public UserTicket(String username, String pass, String email) {
 		super();
 		this.username = username;
 		this.pass = pass;
-		this.address = address;
 		this.email = email;
 	}
 
@@ -80,14 +73,6 @@ public class UserTicket implements Serializable{
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getEmail() {
