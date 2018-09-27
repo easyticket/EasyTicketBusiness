@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.dise.tickets.auth.filter.JWTAuthenticationFilter;
+import com.dise.tickets.auth.filter.JWTAuthorizationFilter;
 import com.dise.tickets.service.impl.JpaUserDetailService;
 
 @Configuration
@@ -37,10 +38,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		
 		http.authorizeRequests().antMatchers("/v1/categories").permitAll()
+		.antMatchers("/v1/socialEvent").hasAuthority("ROLE_ADMIN")
+		.anyRequest().authenticated()
 		.antMatchers("/v1/socialEvents").hasAuthority("ROLE_ADMIN")
 		.anyRequest().authenticated()
 		.and()
 		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
