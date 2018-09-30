@@ -26,7 +26,7 @@ public class UserTicket implements Serializable{
 	@Column(name = "username", unique= true)
 	private String username;
 	
-	@Column(name = "pass")
+	@Column(name = "password")
 	private String pass;
 	
 	@Column(name = "email")
