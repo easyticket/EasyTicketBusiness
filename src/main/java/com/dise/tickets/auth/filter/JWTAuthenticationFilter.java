@@ -73,15 +73,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((User) authResult.getPrincipal()).getUsername();
-//		KeyPairGenerator kpg;
-//		KeyPair kp = null;
-//		try {
-//			kpg = KeyPairGenerator.getInstance("RSA");
-//			kp = kpg.generateKeyPair();
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
 		authResult.getAuthorities();
 		
