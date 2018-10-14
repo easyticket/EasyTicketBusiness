@@ -15,7 +15,7 @@ import com.dise.tickets.service.UserService;
 @Service
 public class UserServiceImpl implements UserService{
 	
-	private final String nameRole = "ROLE_ADMIN";
+	private final String nameRole = "ROLE_USER";
 	
 	@Autowired
 	private UserDao userDao;
