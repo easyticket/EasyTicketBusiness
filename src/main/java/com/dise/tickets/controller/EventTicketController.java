@@ -65,7 +65,6 @@ public class EventTicketController {
 
 	}
 
-	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody

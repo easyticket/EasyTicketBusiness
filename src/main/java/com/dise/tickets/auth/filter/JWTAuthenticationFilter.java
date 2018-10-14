@@ -23,6 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.dise.tickets.entity.UserTicket;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +37,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Autowired
 	private JWTKey key;
-	
 	public JWTAuthenticationFilter(AuthenticationManager autenticationManager) {
 		this.autenticationManager = autenticationManager;
 		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/v1/login", "POST"));
@@ -57,7 +57,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			try {
 				user = new ObjectMapper().readValue(request.getInputStream(), UserTicket.class);
 				username = user.getUsername();
-				password = user.getPass();
+				password = user.getPassword();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -73,16 +73,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		String username = ((User) authResult.getPrincipal()).getUsername();
-//		KeyPairGenerator kpg;
-//		KeyPair kp = null;
-//		try {
-//			kpg = KeyPairGenerator.getInstance("RSA");
-//			kp = kpg.generateKeyPair();
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+
 		authResult.getAuthorities();
 		
 		Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
@@ -94,7 +85,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.setClaims(claims)
 				.setSubject(username)
 				.signWith(key.getKp().getPrivate())
-				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis()+3600L*12L)).compact();
+				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis()+3600L*12L*1000L)).compact();
 		response.addHeader("Authorization", "Bearer " + token);
 
 		Map<String, Object> body = new HashMap<>();

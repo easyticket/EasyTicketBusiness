@@ -51,16 +51,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 		
 		boolean isValid ;
 		
-//		KeyPairGenerator kpg;
-//		KeyPair kp = null;
-//		try {
-//			kpg = KeyPairGenerator.getInstance("RSA");
-//			kp = kpg.generateKeyPair();
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		Claims token =null;
 		
 		try {

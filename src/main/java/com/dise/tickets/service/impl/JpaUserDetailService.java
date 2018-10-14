@@ -29,7 +29,7 @@ public class JpaUserDetailService implements UserDetailsService{
 		UserTicket user = userDao.findByUsername(username);
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getRole().getAuthority()));
-		return new User(user.getUsername(), user.getPass(), user.isEnabled(), true, true, true, authorities);
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
 	}
 
 }

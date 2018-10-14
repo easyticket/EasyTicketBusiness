@@ -26,8 +26,8 @@ public class UserTicket implements Serializable{
 	@Column(name = "username", unique= true)
 	private String username;
 	
-	@Column(name = "pass")
-	private String pass;
+	@Column(name = "password")
+	private String password;
 	
 	@Column(name = "email")
 	private String email;
@@ -47,7 +47,7 @@ public class UserTicket implements Serializable{
 	public UserTicket(String username, String pass, String email) {
 		super();
 		this.username = username;
-		this.pass = pass;
+		this.password = pass;
 		this.email = email;
 	}
 
@@ -67,12 +67,12 @@ public class UserTicket implements Serializable{
 		this.username = username;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String pass) {
+		this.password = pass;
 	}
 
 	public String getEmail() {
