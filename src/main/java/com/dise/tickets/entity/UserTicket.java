@@ -28,6 +28,7 @@ public class UserTicket implements Serializable{
 	
 	@Column(name = "password")
 	private String password;
+
 	
 	@Column(name = "email")
 	private String email;
@@ -36,7 +37,7 @@ public class UserTicket implements Serializable{
 	private boolean enabled;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_authority", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "fk_authority"))
+	@JoinColumn(name = "id_authority", insertable = true, updatable = false ,foreignKey = @ForeignKey(name = "fk_authority"))
 	private Role role;
 
 	
