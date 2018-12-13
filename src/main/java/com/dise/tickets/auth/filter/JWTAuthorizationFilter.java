@@ -20,7 +20,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.dise.tickets.auth.SimpleGrantedAuthoritiesMixin;
+import com.dise.tickets.auth.SimpleGrantedAuthorityMixin;
+import com.dise.tickets.auth.service.JWTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
@@ -29,8 +30,11 @@ import io.jsonwebtoken.Jwts;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 
-	public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
+	private JWTService jwtService;
+
+	public JWTAuthorizationFilter(AuthenticationManager authenticationManager,JWTService jwtService) {
 		super(authenticationManager);
+		this.jwtService= jwtService;
 
 	}
 	
@@ -49,33 +53,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 			return;
 		}
 		
-		boolean isValid ;
-		
-		Claims token =null;
-		
-		try {
-			token = Jwts.parser()
-			.setSigningKey(key.getKp().getPrivate())
-			.parseClaimsJws(header.replace("Bearer ", "")).getBody();
-			isValid = true;
-		}catch(JwtException |IllegalArgumentException e) {
-			isValid = false;
-			System.out.println(e);
-
-		}
 		
 		UsernamePasswordAuthenticationToken authentication =null;
-		if(isValid) {
-			String username = token.getSubject();
-	
-			Object roles = token.get("authorities");
-			
-			Collection<? extends GrantedAuthority> authorities = Arrays.asList(
-					new ObjectMapper()
-					.addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthoritiesMixin.class)
-					.readValue(roles.toString().getBytes(), SimpleGrantedAuthority[].class)
-					);
-			authentication = new UsernamePasswordAuthenticationToken(username, null,authorities);
+		if(jwtService.validate(header)) {
+			authentication = new UsernamePasswordAuthenticationToken(jwtService.getUsername(header), null,jwtService.getRoles(header));
 		}
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);

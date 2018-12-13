@@ -15,6 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.dise.tickets.auth.filter.JWTAuthenticationFilter;
 import com.dise.tickets.auth.filter.JWTAuthorizationFilter;
+import com.dise.tickets.auth.service.JWTService;
 import com.dise.tickets.service.impl.JpaUserDetailService;
 
 @Configuration
@@ -26,6 +27,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JpaUserDetailService userDetailService;
+	
+	@Autowired
+	private JWTService jwtService;
 
 	@Autowired
 	public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
@@ -43,8 +47,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/v1/user/registry").permitAll()
 				.antMatchers("/v1/ticket/create").hasAuthority("ROLE_USER").anyRequest().authenticated()
 				.and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager())).csrf().disable().sessionManagement()
+				.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtService))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtService)).csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 

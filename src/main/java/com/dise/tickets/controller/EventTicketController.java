@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,17 +31,17 @@ public class EventTicketController {
 	TicketService ticketService;
 
 	// GET
-	@RequestMapping(value = "/ticket", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<Ticket>> getTickets() {
-		List<Ticket> tickets = new ArrayList<>();
-		tickets = ticketService.findAll();
-		if (tickets.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-
-		return new ResponseEntity<List<Ticket>>(tickets, HttpStatus.OK);
-
-	}
+//	@RequestMapping(value = "/ticket", method = RequestMethod.GET, headers = "Accept=application/json")
+//	public ResponseEntity<List<Ticket>> getTickets() {
+//		List<Ticket> tickets = new ArrayList<>();
+//		tickets = ticketService.findAll();
+//		if (tickets.isEmpty()) {
+//			return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		}
+//
+//		return new ResponseEntity<List<Ticket>>(tickets, HttpStatus.OK);
+//
+//	}
 
 	// GET
 	@RequestMapping(value = "/ticket/{socialEventId}/{ticketNumber}", method = RequestMethod.GET)
@@ -56,21 +57,32 @@ public class EventTicketController {
 
 	}
 
-	// POST
-	@RequestMapping(value = "/ticket", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<?> postTicket(@RequestBody Ticket ticket) {
-
-		ticketService.save(ticket);
-		return new ResponseEntity(HttpStatus.ACCEPTED);
-
-	}
+//	// POST
+//	@RequestMapping(value = "/ticket", method = RequestMethod.POST, headers = "Accept=application/json")
+//	public ResponseEntity<?> postTicket(@RequestBody Ticket ticket) {
+//
+//		ticketService.save(ticket);
+//		return new ResponseEntity(HttpStatus.ACCEPTED);
+//
+//	}
 
 	@RequestMapping(value = "/ticket/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<TicketResponse> createTicket(@Valid @RequestBody TicketRequest ticketRequest) {
+	public List<TicketResponse> createTicket(@Valid @RequestBody TicketRequest ticketRequest,Authentication authentication) {
+		ticketRequest.setIdentification(authentication.getName());
 		List<TicketPk> ticketPk = ticketService.createTicket(ticketRequest);
 		return ticketService.buildTicketResponse(ticketPk);
+
+	}
+	
+	@RequestMapping(value = "/ticket", method = RequestMethod.GET)
+	public ResponseEntity<List<Ticket>> getTicketByUser(Authentication authentication) {
+		
+		List<Ticket> ticket = ticketService.findByUser(authentication.getName());
+		
+		System.out.println("Entre");
+		return new ResponseEntity<List<Ticket>>(ticket, HttpStatus.OK);
 
 	}
 	

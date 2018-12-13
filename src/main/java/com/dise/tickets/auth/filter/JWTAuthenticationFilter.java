@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.dise.tickets.auth.service.JWTService;
 import com.dise.tickets.entity.UserTicket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,12 +35,15 @@ import io.jsonwebtoken.Jwts;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager autenticationManager;
-
+	private JWTService jwtService;
+	
 	@Autowired
 	private JWTKey key;
-	public JWTAuthenticationFilter(AuthenticationManager autenticationManager) {
+	public JWTAuthenticationFilter(AuthenticationManager autenticationManager,JWTService jwtService) {
 		this.autenticationManager = autenticationManager;
 		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/v1/login", "POST"));
+		
+		this.jwtService= jwtService;
 	}
 
 	@Override
@@ -72,26 +76,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		String username = ((User) authResult.getPrincipal()).getUsername();
-		authResult.getAuthorities();
-		
-		Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
-		
-		Claims claims = Jwts.claims();
-		claims.put("authorities",new ObjectMapper().writeValueAsString(roles));
-		
-		String token = Jwts.builder()
-				.setClaims(claims)
-				.setSubject(username)
-				.signWith(key.getKp().getPrivate())
-				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis()+3600L*12L*1000L)).compact();
+	
+		String token = jwtService.create(authResult);
 		response.addHeader("Authorization", "Bearer " + token);
 
 		Map<String, Object> body = new HashMap<>();
 
 		body.put("token", token);
 		body.put("user", (User) authResult.getPrincipal());
-		body.put("mensaje", "Hola perra");
+		body.put("mensaje", String.format("Hola ",((User) authResult.getPrincipal()).getUsername()));
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
 		response.setContentType("aplication/json");

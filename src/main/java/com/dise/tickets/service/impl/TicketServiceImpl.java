@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.TicketDao;
@@ -18,6 +19,9 @@ import com.dise.tickets.model.TicketRequest;
 import com.dise.tickets.model.TicketResponse;
 import com.dise.tickets.service.TicketService;
 import com.dise.tickets.util.DateSetup;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 @Service
 @Transactional
@@ -41,7 +45,13 @@ public class TicketServiceImpl implements TicketService{
 	public Ticket findById(TicketPk ticketPk) {
 		return ticketDao.findById(ticketPk);
 	}
-
+	
+	@Override
+	public List<Ticket> findByUser(String idUser) {
+		// TODO Auto-generated method stub
+		return ticketDao.findByUser(idUser);
+	}
+	
 	@Override
 	public void update(Ticket ticket) {
 		ticketDao.update(ticket);
@@ -60,7 +70,7 @@ public class TicketServiceImpl implements TicketService{
 		for (int i = 0; i <ticketRequest.getQuantity(); i++) {
 			
 		Ticket ticket = new Ticket();
-	
+
 		ticket.setTicketpk(createPkTicket(ticketRequest));
 
 		SocialEvent socialEvent = new SocialEvent();
@@ -116,5 +126,7 @@ public class TicketServiceImpl implements TicketService{
 		}
 			return list;	
 	}
+
+
 
 }

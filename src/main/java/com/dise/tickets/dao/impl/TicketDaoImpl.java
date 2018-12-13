@@ -30,7 +30,13 @@ public class TicketDaoImpl  extends AbstractSession implements TicketDao {
 	public Ticket findById(TicketPk id) {
 		return (Ticket)	getSession().get(Ticket.class,id);
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ticket> findByUser(String id) {
+		return getSession().createQuery("FROM Ticket WHERE identificationUser = :idUser ")
+				.setParameter("idUser", id).list();
+	}
 	@Override
 	public void update(Ticket ticket) {
 		getSession().update(ticket);
@@ -43,5 +49,7 @@ public class TicketDaoImpl  extends AbstractSession implements TicketDao {
 			getSession().delete(ticket);
 		}
 	}
+
+
 
 }
