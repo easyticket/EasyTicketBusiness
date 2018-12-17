@@ -46,6 +46,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/v1/socialEventById").permitAll()
 				.antMatchers("/v1/user/registry").permitAll()
 				.antMatchers("/v1/ticket/create").hasAuthority("ROLE_USER").anyRequest().authenticated()
+				.antMatchers("/v1/ticket").hasAuthority("ROLE_USER").anyRequest().authenticated()
 				.and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtService))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtService)).csrf().disable().sessionManagement()

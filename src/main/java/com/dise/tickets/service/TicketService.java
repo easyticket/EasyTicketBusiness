@@ -16,7 +16,7 @@ public interface TicketService {
 
 	public Ticket findById(TicketPk ticketPk);
 
-	public List<Ticket> findByUser(String idUser);
+	public List<TicketPk> findByUser(String idUser);
 
 	public void update(Ticket ticket);
 

@@ -76,13 +76,13 @@ public class EventTicketController {
 
 	}
 	
-	@RequestMapping(value = "/ticket", method = RequestMethod.GET)
-	public ResponseEntity<List<Ticket>> getTicketByUser(Authentication authentication) {
+	@RequestMapping(value = "/ticket", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public List<TicketResponse> getTicketByUser(Authentication authentication) {
 		
-		List<Ticket> ticket = ticketService.findByUser(authentication.getName());
+		List<TicketPk> ticketPk= ticketService.findByUser(authentication.getName());
 		
-		System.out.println("Entre");
-		return new ResponseEntity<List<Ticket>>(ticket, HttpStatus.OK);
+		return ticketService.buildTicketResponse(ticketPk);
 
 	}
 	

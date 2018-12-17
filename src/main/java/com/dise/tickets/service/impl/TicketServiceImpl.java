@@ -46,12 +46,7 @@ public class TicketServiceImpl implements TicketService{
 		return ticketDao.findById(ticketPk);
 	}
 	
-	@Override
-	public List<Ticket> findByUser(String idUser) {
-		// TODO Auto-generated method stub
-		return ticketDao.findByUser(idUser);
-	}
-	
+
 	@Override
 	public void update(Ticket ticket) {
 		ticketDao.update(ticket);
@@ -62,6 +57,15 @@ public class TicketServiceImpl implements TicketService{
 		ticketDao.delete(ticketPk);		
 	}
 
+	@Override
+	public List<TicketPk> findByUser(String idUser) {
+		List<TicketPk> list = new ArrayList<>();
+		ticketDao.findByUser(idUser).stream().forEach((t)->{
+			list.add(t.getTicketpk());
+		});
+		return list;
+		
+	}
 	
 	@Override
 	public List<TicketPk> createTicket(TicketRequest ticketRequest) {
