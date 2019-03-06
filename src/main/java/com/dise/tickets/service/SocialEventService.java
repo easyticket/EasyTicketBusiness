@@ -1,6 +1,6 @@
 package com.dise.tickets.service;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dise.tickets.entity.SocialEvent;
@@ -14,9 +14,9 @@ public interface SocialEventService {
 	
 	public List<SocialEvent> findByCost(int cost);
 
-	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd);
+	public List<SocialEventResponse> findByDate(LocalDate dateStart, LocalDate dateEnd);
 	
-	public List<SocialEvent> findByDateAndCity(Timestamp dateStart, Timestamp dateEnd,Long city);
+	public List<SocialEvent> findByDateAndCity(LocalDate dateStart, LocalDate dateEnd,Long city);
 	
 	public List<SocialEventResponse> findEventByCategory(Long category);
 

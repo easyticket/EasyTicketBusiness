@@ -1,7 +1,7 @@
 package com.dise.tickets.service.impl;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.SocialEventDao;
-import com.dise.tickets.entity.Category;
 import com.dise.tickets.entity.SocialEvent;
 import com.dise.tickets.model.SocialEventResponse;
 import com.dise.tickets.service.SocialEventService;
-import com.dise.tickets.util.DateSetup;
 
-import ma.glasnost.orika.MapperFactory;
 
 @Service
 @Transactional
@@ -40,12 +37,13 @@ public class SocialEventServiceImpl implements SocialEventService{
 		return socialEventDao.findByCost(cost);
 	}
 	@Override
-	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
-		return socialEventDao.findByDate(dateStart, dateEnd);
+	public List<SocialEventResponse> findByDate(LocalDate dateStart, LocalDate dateEnd) {
+		List<SocialEvent> events  =  socialEventDao.findByDate(dateStart, dateEnd);
+		return convertEntityToModel(events);
 	}
 	
 	@Override
-	public List<SocialEvent> findByDateAndCity(Timestamp dateStart, Timestamp dateEnd, Long city) {
+	public List<SocialEvent> findByDateAndCity(LocalDate dateStart, LocalDate dateEnd, Long city) {
 		return socialEventDao.findByDateAndCty(dateStart, dateEnd, city);
 	}
 	
@@ -60,7 +58,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 		List<SocialEventResponse> events = new ArrayList<>();
 		for(SocialEvent se:eventsEntity) {
 			SocialEventResponse socialEventResponse =
-					new SocialEventResponse(se.getId(), se.getName(), DateSetup.formatterDate(se.getDateStart()), DateSetup.formatterDate(se.getDateEnd()), se.getPriceTicket(),
+					new SocialEventResponse(se.getId(), se.getName(), se.getDateStart().toString(), se.getDateEnd().toString(), se.getPriceTicket(),
 							se.getAvailableTickets(), se.getDescription(),  new BigDecimal(se.getLatitude().trim()),  new BigDecimal(se.getLongitude().trim()),se.getAddress());
 			events.add(socialEventResponse);
 		}
@@ -76,7 +74,7 @@ public class SocialEventServiceImpl implements SocialEventService{
 	
 	public SocialEventResponse convertEntityToModel(SocialEvent eventEntity){
 		SocialEventResponse socialEventResponse =
-				new SocialEventResponse(eventEntity.getId(), eventEntity.getName(), DateSetup.formatterDate(eventEntity.getDateStart()), DateSetup.formatterDate(eventEntity.getDateEnd()), eventEntity.getPriceTicket(),
+				new SocialEventResponse(eventEntity.getId(), eventEntity.getName(), eventEntity.getDateStart().toString(), eventEntity.getDateEnd().toString(), eventEntity.getPriceTicket(),
 						eventEntity.getAvailableTickets(), eventEntity.getDescription(),   new BigDecimal(eventEntity.getLatitude().trim()),   new BigDecimal(eventEntity.getLongitude().trim()), eventEntity.getAddress());
 	return socialEventResponse;
 }

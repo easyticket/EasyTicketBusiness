@@ -1,6 +1,6 @@
 package com.dise.tickets.dao;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dise.tickets.entity.SocialEvent;
@@ -11,11 +11,11 @@ public interface SocialEventDao {
 
 	public List<SocialEvent> findAll();
 	
-	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd);
+	public List<SocialEvent> findByDate(LocalDate dateStart, LocalDate dateEnd);
 	
 	public List<SocialEvent> findByCost(int cost);
 	
-	public List<SocialEvent> findByDateAndCty(Timestamp dateStart, Timestamp dateEnd,Long city);
+	public List<SocialEvent> findByDateAndCty(LocalDate dateStart, LocalDate dateEnd,Long city);
 
 	public List<SocialEvent> findByCategory(Long category);
 

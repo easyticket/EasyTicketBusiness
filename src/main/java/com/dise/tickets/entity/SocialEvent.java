@@ -2,6 +2,7 @@ package com.dise.tickets.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,10 +31,10 @@ public class SocialEvent implements Serializable {
 	private String name;
 
 	@Column(name = "date_start")
-	private Timestamp dateStart;
+	private String dateStart;
 
 	@Column(name = "date_end")
-	private Timestamp dateEnd;
+	private String dateEnd;
 
 	@Column(name = "price_ticket")
 	private Long priceTicket;
@@ -69,7 +70,7 @@ public class SocialEvent implements Serializable {
 	}
 
 
-	public SocialEvent(String name, Timestamp dateStart, Timestamp dateEnd, Long priceTicket, Integer availableTickets,
+	public SocialEvent(String name, String dateStart, String dateEnd, Long priceTicket, Integer availableTickets,
 			String description,String latitude,String longitude, String address) {
 		super();
 		this.name = name;
@@ -104,19 +105,19 @@ public class SocialEvent implements Serializable {
 		this.name = name;
 	}
 
-	public Timestamp getDateStart() {
+	public String getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(Timestamp dateStart) {
+	public void setDateStart(String dateStart) {
 		this.dateStart = dateStart;
 	}
 
-	public Timestamp getDateEnd() {
+	public String getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Timestamp dateEnd) {
+	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 

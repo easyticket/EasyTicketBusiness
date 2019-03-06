@@ -1,9 +1,12 @@
 package com.dise.tickets.dao.impl;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
+
 import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
+
 import com.dise.tickets.dao.AbstractSession;
 import com.dise.tickets.dao.SocialEventDao;
 import com.dise.tickets.entity.SocialEvent;
@@ -21,7 +24,7 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 
 	@Override
 	public List<SocialEvent> findAll() {
-		return getSession().createQuery("from SocialEvent").list();
+		return getSession().createQuery("from SocialEvent WHERE dateStart > current_date").list();
 	}
 	
 
@@ -29,7 +32,7 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SocialEvent> findByDateAndCty(Timestamp dateStart, Timestamp dateEnd, Long city) {
+	public List<SocialEvent> findByDateAndCty(LocalDate dateStart, LocalDate dateEnd, Long city) {
 		return getSession().createQuery("FROM SocialEvent as se inner join fetch se.enterprise as ent "
 				+ "	inner join fetch ent.city as city "
 				+ " WHERE city.id = :city "
@@ -46,10 +49,11 @@ public class SocialEventDaoImpl extends AbstractSession implements SocialEventDa
 				.setParameter("cost", cost).list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<SocialEvent> findByDate(Timestamp dateStart, Timestamp dateEnd) {
+	public List<SocialEvent> findByDate(LocalDate dateStart, LocalDate dateEnd) {
 		return getSession().createQuery("FROM SocialEvent WHERE dateStart BETWEEN :dateStart AND :dateEnd ")
-				.setParameter("dateStart", dateStart).setParameter("dateEnd", dateEnd).list();
+				.setParameter("dateStart", dateStart.toString()).setParameter("dateEnd", dateEnd.toString()).list();
 	}
 	
 	@SuppressWarnings("unchecked")

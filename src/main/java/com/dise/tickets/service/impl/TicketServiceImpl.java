@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.dise.tickets.dao.TicketDao;
@@ -18,10 +17,6 @@ import com.dise.tickets.enums.TicketStatus;
 import com.dise.tickets.model.TicketRequest;
 import com.dise.tickets.model.TicketResponse;
 import com.dise.tickets.service.TicketService;
-import com.dise.tickets.util.DateSetup;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 @Service
 @Transactional
@@ -122,7 +117,7 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
 			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
 			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
-			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
+			ticketResponse.setDate(ticketQuery.getSocialEvent().getDateStart().toString());
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
 			
