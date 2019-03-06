@@ -17,7 +17,6 @@ import com.dise.tickets.enums.TicketStatus;
 import com.dise.tickets.model.TicketRequest;
 import com.dise.tickets.model.TicketResponse;
 import com.dise.tickets.service.TicketService;
-import com.dise.tickets.util.DateSetup;
 
 @Service
 @Transactional
@@ -41,6 +40,7 @@ public class TicketServiceImpl implements TicketService{
 	public Ticket findById(TicketPk ticketPk) {
 		return ticketDao.findById(ticketPk);
 	}
+	
 
 	@Override
 	public void update(Ticket ticket) {
@@ -52,6 +52,15 @@ public class TicketServiceImpl implements TicketService{
 		ticketDao.delete(ticketPk);		
 	}
 
+	@Override
+	public List<TicketPk> findByUser(String idUser) {
+		List<TicketPk> list = new ArrayList<>();
+		ticketDao.findByUser(idUser).stream().forEach((t)->{
+			list.add(t.getTicketpk());
+		});
+		return list;
+		
+	}
 	
 	@Override
 	public List<TicketPk> createTicket(TicketRequest ticketRequest) {
@@ -60,7 +69,7 @@ public class TicketServiceImpl implements TicketService{
 		for (int i = 0; i <ticketRequest.getQuantity(); i++) {
 			
 		Ticket ticket = new Ticket();
-	
+
 		ticket.setTicketpk(createPkTicket(ticketRequest));
 
 		SocialEvent socialEvent = new SocialEvent();
@@ -108,7 +117,7 @@ public class TicketServiceImpl implements TicketService{
 			ticketResponse.setAddress(ticketQuery.getSocialEvent().getEnterprise().getAddress());
 			ticketResponse.setNameEvent(ticketQuery.getSocialEvent().getName());
 			ticketResponse.setCost(ticketQuery.getSocialEvent().getPriceTicket());
-			ticketResponse.setDate(DateSetup.formatterDate(ticketQuery.getSocialEvent().getDateStart()));
+			ticketResponse.setDate(ticketQuery.getSocialEvent().getDateStart().toString());
 			ticketResponse.setNumber(ticketQuery.getNumber().toString());
 			ticketResponse.setHash(ticketQuery.getTicketpk().getIdTicket());
 			
@@ -116,5 +125,7 @@ public class TicketServiceImpl implements TicketService{
 		}
 			return list;	
 	}
+
+
 
 }

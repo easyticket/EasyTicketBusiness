@@ -14,8 +14,7 @@ public class TicketRequest {
 	private String identificationType;
 	
 	@NotNull
-	@Min(value = 1L)
-	private Long identification;
+	private String identification;
 	
 	@NotNull
 	private String names;
@@ -42,10 +41,10 @@ public class TicketRequest {
 	public void setIdentificationType(String identificationType) {
 		this.identificationType = identificationType;
 	}
-	public Long getIdentification() {
+	public String getIdentification() {
 		return identification;
 	}
-	public void setIdentification(Long identification) {
+	public void setIdentification(String identification) {
 		this.identification = identification;
 	}
 	public String getNames() {

@@ -28,7 +28,7 @@ public class Ticket implements Serializable{
 	private Integer number;
 	
 	@Column(name = "id_user")
-	private Long identificationUser;
+	private String identificationUser;
 
 	@ManyToOne
 	@JoinColumn(name = "id_event", insertable = false, updatable = false ,foreignKey = @ForeignKey(name = "FK_EVE_TIC"))
@@ -85,11 +85,11 @@ public class Ticket implements Serializable{
 		this.socialEvent = socialEvent;
 	}
 
-	public Long getIdentificationUser() {
+	public String getIdentificationUser() {
 		return identificationUser;
 	}
 
-	public void setIdentificationUser(Long identificationUser) {
+	public void setIdentificationUser(String identificationUser) {
 		this.identificationUser = identificationUser;
 	}
 	

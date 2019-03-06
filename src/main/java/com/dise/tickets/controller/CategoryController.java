@@ -22,7 +22,6 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@CrossOrigin(origins ="*")
 	@RequestMapping(value = "/categories", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<List<Category>> getSocialEvent() {
 		List<Category> categories = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.dise.tickets.controller;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,28 +73,32 @@ public class SocEventController {
 
 	
 	// GET
-	@RequestMapping(value = "/socialEvent/{dateStart}/{dateEnd}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<SocialEvent>> getSocialEventForDate(@PathVariable("dateStart") Timestamp dateStart,
-			@PathVariable("dateEnd") Timestamp dateEnd) {
-		List<SocialEvent> socialEvents = new ArrayList<>();
-		socialEvents = socialEventService.findByDate(dateStart, dateEnd);
-		if (socialEvents.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
+	@CrossOrigin(origins ="*")
+	@RequestMapping(value = "/socialEvent/{startDate}/{endDate}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public  List<SocialEventResponse>  getSocialEventForDate(@PathVariable("startDate") String startD,
+			@PathVariable("endDate") String endD) {
+		List<SocialEventResponse> socialEvents = new ArrayList<>();
+		LocalDate startDate = LocalDate.parse(startD);
+		LocalDate endDate = LocalDate.parse(endD);
 
-		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
+		socialEvents = socialEventService.findByDate(startDate, endDate);
+		
+		return socialEvents;
 
 	}
 	
 	// GET
+	@CrossOrigin(origins ="*")
 	@RequestMapping(value = "/socialEvent/{dateStart}/{dateEnd}/{city}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<SocialEvent>> getSocialEventForDate(@PathVariable("dateStart") Timestamp dateStart,
-			@PathVariable("dateEnd") Timestamp dateEnd,@PathVariable("city") Long city) {
+	public ResponseEntity<List<SocialEvent>> getSocialEventForDate(@PathVariable("dateStart") String dateStart,
+			@PathVariable("dateEnd") String dateEnd,@PathVariable("city") Long city) {
 		List<SocialEvent> socialEvents = new ArrayList<>();
-		socialEvents = socialEventService.findByDateAndCity(dateStart, dateEnd, city);
-		if (socialEvents.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
+//		socialEvents = socialEventService.findByDateAndCity(dateStart, dateEnd, city);
+//		if (socialEvents.isEmpty()) {
+//			return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		}
 
 		return new ResponseEntity<List<SocialEvent>>(socialEvents, HttpStatus.OK);
 

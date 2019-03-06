@@ -1,7 +1,6 @@
 package com.dise.tickets.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class SocialEventResponse {
 

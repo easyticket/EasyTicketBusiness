@@ -12,6 +12,8 @@ public interface TicketDao {
 	public List<Ticket> findAll();
 
 	public Ticket findById(TicketPk id);
+	
+	public List<Ticket> findByUser(String id);
 
 	public void update(Ticket event);
 
